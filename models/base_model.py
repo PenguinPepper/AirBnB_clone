@@ -4,14 +4,11 @@
 Class Module Doc: 
 """
 from uuid import uuid4
-from datetime import datetime
-
+from datetime import datetime, timezone
 
 
 class BaseModel:
 
-	name = None
-	my_number = None
 
 	def __init__(self):
 		
@@ -32,10 +29,12 @@ class BaseModel:
 
 	def to_dict(self):
 
-		res = self.__dict__
-		res["created_at"] = str(res["created_at"])
-		res["updated_at"] = str(res["updated_at"])
+		res = {}
 		res["__class__"] = __class__.__name__
+		res["updated_at"] = str(self.updated_at)
+		res["id"] = self.id
+		res["created_at"] = str(self.created_at)
+		res.update(self.__dict__)
 
 		return res
 
