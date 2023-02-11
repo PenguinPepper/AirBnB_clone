@@ -3,23 +3,22 @@
 File Storage Model Doc
 """
 import sys
-sys.path.append('..')
-from base_model import BaseModel
 import json
-
+from base_model import BaseModel
+sys.path.append('..')
 
 
 class FileStorage(BaseModel):
-    
+
     __file_path = "database.json"
     __objects = {}
 
     def all(self):
-        
+
         return self.__objects
 
     def new(self, obj):
-        
+
         self.__objects[obj.id] = obj.to_dict()
 
     def save(self):
@@ -31,13 +30,12 @@ class FileStorage(BaseModel):
         self.__objects.update(mods)
         print("obj", self.__objects)
 
-
         with open(self.__file_path, "w") as m:
             json.dump(self.__objects, m)
             #  print(">>>>", m.read())
 
     def reload(self):
-        
+
         with open("database.json") as f:
             remodels = json.load(f)
             print(type(remodels))
@@ -58,6 +56,7 @@ class FileStorage(BaseModel):
             print("exception! new file created")
             data = {}
         return data
+
 
 my_model = FileStorage()
 my_model.name = "My_First_Model"
