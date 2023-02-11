@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-"""
-File Storage Model Doc
-"""
+import sys
+import json
+from base_model import BaseModel
 import sys
 sys.path.append('..')
-from base_model import BaseModel
-import json
+
 
 
 
