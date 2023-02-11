@@ -29,8 +29,8 @@ class BaseModel:
                 self.key = value
                 if key == "created_at" or key == "update_at":
                     dtype = str(isinstance(key, str))
-                    if dtype == "True":
-                        self.key = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    if dtype == "True": self.key = datetime.strptime(value,
+                            "%Y-%m-%dT%H:%M:%S.%f")
                 if key == "__class__":
                     continue
         else:
