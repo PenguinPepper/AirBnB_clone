@@ -6,7 +6,7 @@
         uuid (module)
 """
 from uuid import uuid4
-from datetime import datetime, timezone
+from datetime import datetime
 
 
 class BaseModel:
@@ -26,17 +26,16 @@ class BaseModel:
 
         if kwargs:
             for key, value in kwargs.items():
-                self.key = value
-                if key == "created_at" or key == "update_at":
-                    dtype = str(isinstance(key, str))
-                    if dtype == "True": self.key = datetime.strptime(value,
-                            "%Y-%m-%dT%H:%M:%S.%f")
                 if key == "__class__":
                     continue
+                if key in ["created_at", "updated_at"]:
+                    key = value.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                setattr(self, key, value)
+                
         else:
             self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
 
     def __str__(self):
         name = __class__.__name__
@@ -44,16 +43,16 @@ class BaseModel:
         return f"[{name}] ({self.id}) {attrs}"
 
     def save(self):
-
-        self.updated_at = datetime.now()
+        date2 = datetime.now()
+        self.updated_at = date2
 
     def to_dict(self):
 
         res = {}
         res["__class__"] = __class__.__name__
-        res["updated_at"] = str(self.updated_at)
+        res["updated_at"] = self.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
         res["id"] = self.id
-        res["created_at"] = str(self.created_at)
+        res["created_at"] = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
         res.update(self.__dict__)
 
         return res
