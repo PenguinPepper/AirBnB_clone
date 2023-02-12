@@ -29,15 +29,15 @@ class BaseModel:
                 if key == "__class__":
                     continue
                 if key in ["created_at", "updated_at"]:
-                    key = value.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    value = self.set_time(value)
                 setattr(self, key, value)
-                
         else:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
 
     def __str__(self):
+
         name = __class__.__name__
         attrs = self.__dict__
         return f"[{name}] ({self.id}) {attrs}"
@@ -49,29 +49,21 @@ class BaseModel:
     def to_dict(self):
 
         res = {}
-        res["__class__"] = __class__.__name__
-        res["updated_at"] = self.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        res["id"] = self.id
-        res["created_at"] = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
         res.update(self.__dict__)
+        res["__class__"] = __class__.__name__
+        res["updated_at"] = self.str_time(self.updated_at)
+        res["id"] = self.id
+        res["created_at"] = self.str_time(self.created_at)
 
         return res
 
+    def str_time(self, val):
 
-my_model = BaseModel()
+        val = val.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        return val
 
+    def set_time(self, val):
 
-my_model.name = "My First Model"
-my_model.my_number = 89
-print(my_model)
-print()
-my_model.save()
-print(my_model)
-print()
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print()
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]),
-        my_model_json[key]))
+        if type(val) != datetime:
+            val = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
+        return val
