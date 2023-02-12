@@ -23,6 +23,8 @@ Check that the datatype is a str
 '''
 
 my_model = base_model.BaseModel()
+
+
 class TestBaseModel(unittest.TestCase):
     '''Test the outputs of BaseModel class
     '''
@@ -45,7 +47,6 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict(self):
         self.assertTrue(isinstance(my_model.to_dict(), dict))
         self.assertIn("created_at", my_model.to_dict())
-        #self.assertIn(my_model.__dict__, my_model.to_dict())
+        # self.assertIn(my_model.__dict__, my_model.to_dict())
         # check that datetime is now str
         # self.assertTrue(isinstance(my_model.to_dict(["created_at"], str)))
-        
