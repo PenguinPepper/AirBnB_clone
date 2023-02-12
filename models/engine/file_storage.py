@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 import sys
 import json
-from base_model import BaseModel
-import sys
-sys.path.append('..')
+# sys.path.append('..')
+from .. import base_model
 
 
 class FileStorage(BaseModel):
@@ -34,9 +33,22 @@ class FileStorage(BaseModel):
 
     def reload(self):
 
-        with open("database.json") as f:
-            remodels = json.load(f)
-            print(type(remodels))
+        try:
+            with open(self.__file_path) as f:
+                chunk = f.read().strip()
+                if chunk:
+                    models = json.loads(chunk)
+                else:
+                    models = {}
+
+                for value in models.values():
+                    model = BaseModel(**my_model)
+                    self.new(model)
+
+            print("Suceful reload!", self.__objects, sep="\n")
+        except Exception as e:
+            print(e)
+            print("No file found")
 
     def load_json(self):
 
@@ -49,15 +61,15 @@ class FileStorage(BaseModel):
                 else:
                     data = {}
         except FileNotFoundError:
-            with open(self._ffile_path, "w") as f:
+            with open(self.__file_path, "w") as f:
                 pass
             print("exception! new file created")
             data = {}
         return data
 
 
-my_model = FileStorage()
+my_model = BaseModel()
 my_model.name = "My_First_Model"
 my_model.my_number = 89
-my_model.save()
-print(my_model)
+my_model.reload()
+# print(my_model)
