@@ -1,14 +1,18 @@
 #!/usr/bin/python3
-import sys
+"""
+File Storage Model Doc
+"""
 import json
-# sys.path.append('..')
-from .. import base_model
+#from models.base_model import BaseModel
 
 
-class FileStorage(BaseModel):
+class FileStorage:
 
-    __file_path = "database.json"
+    __file_path = "file.json"
     __objects = {}
+
+    def __init__(self):
+        pass
 
     def all(self):
 
@@ -16,60 +20,25 @@ class FileStorage(BaseModel):
 
     def new(self, obj):
 
-        self.__objects[obj.id] = obj.to_dict()
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        self.__objects[key] = obj.to_dict()
 
     def save(self):
 
-        self.new(self)
-        mods = self.load_json()
-        print("++", mods)
-
-        self.__objects.update(mods)
-        print("obj", self.__objects)
-
-        with open(self.__file_path, "w") as m:
-            json.dump(self.__objects, m)
-            #  print(">>>>", m.read())
+        with open(self.__file_path, "w") as f:
+            export = {}
+            for key, value in self.__objects.items():
+                export[key] = value
+				#export[key] = value.to_dict()
+            json.dump(export, f)
 
     def reload(self):
-
         try:
             with open(self.__file_path) as f:
-                chunk = f.read().strip()
-                if chunk:
-                    models = json.loads(chunk)
-                else:
-                    models = {}
-
-                for value in models.values():
-                    model = BaseModel(**my_model)
-                    self.new(model)
-
-            print("Suceful reload!", self.__objects, sep="\n")
-        except Exception as e:
-            print(e)
-            print("No file found")
-
-    def load_json(self):
-
-        try:
-            with open(self.__file_path, 'r') as f:
-                c = f.read().strip()
-                if c:
-                    data = json.loads(c)
-                    print("found")
-                else:
-                    data = {}
+                chunk = json.load(f)
+                #for key, value in chunk.items():
+                #    class_ = key.split(".")[0]
+                #    self.__objects[key] = eval(class_)(**value)
+                self.__objects = chunk
         except FileNotFoundError:
-            with open(self.__file_path, "w") as f:
-                pass
-            print("exception! new file created")
-            data = {}
-        return data
-
-
-my_model = BaseModel()
-my_model.name = "My_First_Model"
-my_model.my_number = 89
-my_model.reload()
-# print(my_model)
+            pass
