@@ -33,8 +33,8 @@ class BaseModel:
                 setattr(self, key, value)
         else:
             self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
 
     def __str__(self):
 
@@ -43,8 +43,8 @@ class BaseModel:
         return f"[{name}] ({self.id}) {attrs}"
 
     def save(self):
-
-        self.updated_at = datetime.now()
+        date2 = datetime.now()
+        self.updated_at = date2
 
     def to_dict(self):
 
