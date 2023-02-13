@@ -24,6 +24,9 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize BaseModel Object
+        """
 
         self.id = str(uuid4())
         self.created_at = datetime.now()
@@ -39,25 +42,32 @@ class BaseModel:
         else:
             storage.new(self)
 
-
     def __str__(self):
+        """
+        Returns BaseModel object string representation
+        """
 
-        name = __class__.__name__
+        name = self.__class__.__name__
         attrs = self.__dict__
 
         return f"[{name}] ({self.id}) {attrs}"
 
     def save(self):
+        """
+        Updates the public instance attribute updated_at
+        """
 
         self.updated_at = datetime.now()
         storage.save()
 
-
     def to_dict(self):
+        """
+        Returns a dictionary of keys/values of instance
+        """
 
         res = {}
         res.update(self.__dict__)
-        res["__class__"] = __class__.__name__
+        res["__class__"] = self.__class__.__name__
         res["updated_at"] = self.updated_at.isoformat()
         res["created_at"] = self.created_at.isoformat()
 
