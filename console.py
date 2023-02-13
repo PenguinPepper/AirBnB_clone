@@ -128,9 +128,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             models = storage.all().values()
-            if len(models) == 0:
-                print('[]')
-                return
             print([str(mod) for mod in models if type(mod).__name__ == class_])
 
     def do_update(self, line):
