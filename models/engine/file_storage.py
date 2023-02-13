@@ -62,10 +62,6 @@ class FileStorage:
                 chunk = json.load(f)
                 for key, value in chunk.items():
                     class_ = key.split(".")[0]
-                    print(">>>>", value.values())
-                    if class_ == "BaseModel":
-                        self.__objects[key] = BaseModel(**value)
-                    if class_ == "User":
-                        self.__objects[key] = User(**value)
+                    self.__objects[key] = eval(class_)(**value)
         except FileNotFoundError:
             pass

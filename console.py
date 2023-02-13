@@ -120,17 +120,18 @@ class HBNBCommand(cmd.Cmd):
         """
 
         if not line:
-            models = storage.all()
+            models = storage.all().values()
+            print([str(mod) for mod in models])
         else:
             class_ = line.split()[0]
             if class_ not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
                 return
-            models = storage.all(class_)
+            models = storage.all().values()
             if len(models) == 0:
                 print('[]')
                 return
-        print([str(mod) for mod in models])
+            print([str(mod) for mod in models if type(mod).__name__ == class_])
 
     def do_update(self, line):
         """
