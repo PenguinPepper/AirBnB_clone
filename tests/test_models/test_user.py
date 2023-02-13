@@ -6,9 +6,9 @@ from datetime import datetime
 '''Test User class
 '''
 
+
 class TestUser(unittest.TestCase):
     '''Methods to test User class'''
-
 
     def setUp(self):
         '''Setup class'''
@@ -18,6 +18,10 @@ class TestUser(unittest.TestCase):
         self.user.email = "airbnb@mail.com"
         self.user.password = "root"
         self.user.save()
+
+    def tearDown(self):
+        ''''Teardown instance'''
+        self.user = None
 
     def test_inheritance(self):
         '''Test Inheritance from BaseModel'''
@@ -56,3 +60,7 @@ class TestUser(unittest.TestCase):
         '''Check output of string method'''
         string = str(self.user)
         self.assertIn(self.user.id, string)
+
+
+if __name__ == "__main__":
+    unittest.main()
