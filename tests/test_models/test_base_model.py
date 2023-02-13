@@ -45,6 +45,7 @@ class TestBaseModel(unittest.TestCase):
         pass
 
     def test_save(self):
+        '''Test save method'''
         my_model.save()
         self.assertNotEqual(my_model.created_at, my_model.updated_at)
     
