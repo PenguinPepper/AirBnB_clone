@@ -1,9 +1,8 @@
-#!/usr/bin/pythpn3
-# doctest for the base_model class
+#!/usr/bin/python3
 from models import base_model
-import unittest
 from datetime import datetime
-import uuid
+from uuid import uuid4
+import unittest
 
 '''
 Test cases for the BaseModel Class
@@ -23,13 +22,13 @@ class TestBaseModel(unittest.TestCase):
     def test_datatype(self):
         '''Test that the instance attributes are the correct type'''
         self.assertTrue(isinstance(my_model.id, str))
-        # self.assertTrue(isinstance(my_model.created_at, datetime.datetime))
-        # self.assertTrue(isinstance(my_model.updated_at, datetime.datetime))
+        self.assertTrue(isinstance(my_model.created_at, datetime))
+        self.assertTrue(isinstance(my_model.updated_at, datetime))
 
     def test_init(self):
         '''Test the functionality of **kwargs'''
         date1 = datetime.now()
-        kwargs = {"id": str(uuid.uuid4()),
+        kwargs = {"id": str(uuid4()),
                 "created_at": date1.isoformat(),
                 "__class__": "BaseModel",
                 "my_number": 32,
@@ -41,7 +40,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str(self):
         '''Test __str__ method'''
-        hstring = f"[{my_model.__class__.__name__}], my_model.id, my_model.__dict__"
+        # hstring = f"[{my_model.__class__.__name__}], my_model.id, my_model.__dict__"
         # self.assertIn()
         pass
 
