@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 import json
 from models.engine import file_storage
-# from models.engine.file_storage import FileStorage
 import unittest
 '''Test cases for FileStorage class
 '''
 
+
 class TestFileStorage(unittest.TestCase):
     '''Test the FileStorage class'''
-
 
     def test_documentation(self):
         '''Test that the module and class is well documentated'''
@@ -21,9 +20,12 @@ class TestFileStorage(unittest.TestCase):
 
     def test_instances(self):
         '''Test that instance is created of class FileStorage'''
-        my_file = file_storage.FileStorage()
-        # self.assertIsInstance(my_file, FileStorage)
+        storage = file_storage.FileStorage()
+        self.assertIs(storage.__class__.__name__, "FileStorage")
+
+    def test_new(self):
         pass
+
 
 if __name__ == "__main__":
     unittest.main()
