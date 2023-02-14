@@ -41,10 +41,10 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str(self):
         '''Test __str__ method'''
-        # hstring = f"[{my_model.__class__.__name__}],
-        # my_model.id, my_model.__dict__"
-        # self.assertIn()
-        pass
+        hstring = str(my_model)
+        outp = "[{}] ({}) {}".format(my_model.__class__.__name__,
+                                     my_model.id, my_model.__dict__)
+        self.assertIn(outp, hstring)
 
     def test_save(self):
         '''Test save method'''
