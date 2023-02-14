@@ -2,9 +2,14 @@
 """Commandline"""
 import cmd
 import readline
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
-from models import storage
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
@@ -44,7 +49,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_ = line.split()[0].strip()
-        if class_ not in ["BaseModel", "User"]:
+        if not issubclass(globals().get(class_, str), BaseModel):
             print("** class doesn't exist **")
         else:
             new_model = eval(class_ + "()")
@@ -70,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_, id = args[0], args[1]
-        if class_ not in ["BaseModel", "User"]:
+        if not issubclass(globals().get(class_, str), BaseModel):
             print("** class doesn't exist **")
             return
 
@@ -99,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_, id = args[0], args[1]
-        if class_ not in ["BaseModel", "User"]:
+        if not issubclass(globals().get(class_, str), BaseModel):
             print("** class doesn't exist **")
             return
 
@@ -124,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
             print([str(mod) for mod in models])
         else:
             class_ = line.split()[0]
-            if class_ not in ["BaseModel", "User"]:
+            if not issubclass(globals().get(class_, str), BaseModel):
                 print("** class doesn't exist **")
                 return
             models = storage.all().values()
@@ -145,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
 
         class_ = args[0]
-        if class_ not in ["BaseModel", "User"]:
+        if not issubclass(globals().get(class_, str), BaseModel):
             print("** class doesn't exist **")
             return
         if len(args) == 1:
@@ -183,5 +188,5 @@ class HBNBCommand(cmd.Cmd):
         model.save()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()

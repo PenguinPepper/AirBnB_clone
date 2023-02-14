@@ -1,17 +1,22 @@
 #!/usr/bin/python3
 """
 File Storage Model Doc
+
+Imports:
+    json (module): Manage Serializatiin & Deserialization
 """
 import json
 
 
 class FileStorage:
     """
-    Serializes instances to JSON and deserializes to instances:
+    FikeStorage Class Doc: Serializes Instances to JSON
+        and deserializes JSON to instances:
 
     Attributes:
         __file_path (str): path to the JSON file
-        __objects (dict): stores all objects by <class name>.id
+        __objects (dict): database objects local storage
+            by {<class name>.id: obj}
     """
 
     __file_path = "file.json"
@@ -19,7 +24,7 @@ class FileStorage:
 
     def __init__(self):
         """
-        Initialize instance
+        Initialize FileStorage Instance
         """
         pass
 
@@ -32,7 +37,8 @@ class FileStorage:
 
     def new(self, obj):
         """
-        sets in __objects the obj with key <obj class name>.id
+        Populates __objects in {<obj class name>.id: obj}
+            format.
         """
 
         key = f"{obj.__class__.__name__}.{obj.id}"
@@ -40,7 +46,7 @@ class FileStorage:
 
     def save(self):
         """
-        serializes __objects to the JSON file
+        Serializes __objects to the JSON file
         """
 
         with open(self.__file_path, "w") as f:
@@ -51,11 +57,25 @@ class FileStorage:
 
     def reload(self):
         """
-        deserializes the JSON file to __objects
+        Deserializes the JSON file to __objects
+
+        Imports:
+            models.base_model.BaseModel (cls): Base Class
+            models.user.User (cls): User Class
+            models.amenity.Amenity (cls): Amenity Class
+            models.city.City (cls): City Class
+            models.place.Place (cls): Place Class
+            models.review.Review (cls): Reviee Class
+            models.state.State (cls): State Class
         """
 
         from models.base_model import BaseModel
         from models.user import User
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
 
         try:
             with open(self.__file_path) as f:

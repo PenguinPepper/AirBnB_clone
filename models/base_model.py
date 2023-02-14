@@ -1,9 +1,14 @@
 #!/usr/bin/python3
-"""Module contains a class called BaseModel
+"""
+BaseModel Module Doc:
 
-    Imports:
-        datetime (module)
-        uuid (module)
+Imports:
+    uuid.uuid4 (module): Create Unique IDs
+    datetime.datetime (module): Manage Time
+    models.storage (module): Manage Objects Storage
+
+Classes:
+    BaseModel (cls): Project Base Class
 """
 from uuid import uuid4
 from datetime import datetime
@@ -11,21 +16,19 @@ from models import storage
 
 
 class BaseModel:
-    """BaseModel defines all common attributes/methods for other classes:
-
-    Attributes:
-        id (string): assign when an instance is created.
-        created_at (datetime): assign with
-            current datetime when an instance is created.
-        updated_at (datetime): assign with the current
-            datetime when an instance is created and
-            it will be updated everytime object is changed.
-        kwargs (dictionary): dictionary of attributes.
+    """
+    BaseModel Class Doc: Defines BaseModel Object
     """
 
     def __init__(self, *args, **kwargs):
         """
         Initialize BaseModel Object
+
+        Attributes:
+            id (str): Unique Instance id
+            created_at (datetime): Assign datetime Values
+            updated_at (datetime): Update datetime Values
+            kwargs (dict): Serialized Instance
         """
 
         self.id = str(uuid4())
