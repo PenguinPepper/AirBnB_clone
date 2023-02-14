@@ -1,12 +1,12 @@
 #!/usr/bin/python3
+'''
+Test cases for the BaseModel Class
+'''
 from models import base_model
 from datetime import datetime
 from uuid import uuid4
 import unittest
 
-'''
-Test cases for the BaseModel Class
-'''
 my_model = base_model.BaseModel()
 my_model2 = base_model.BaseModel()
 my_model.save()
