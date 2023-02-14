@@ -16,8 +16,7 @@ Once the console is started, you will see the prompt `(hbnb)` indicating that th
 - `show`: Shows an object of the specified class and id. For example, `show BaseModel 1234-1234-1234`.
 - `destroy`: Deletes an object of the specified class and id. For example, `destroy BaseModel 1234-1234-1234`.
 - `all`: Shows all objects based or not on the specified class. For example, `all BaseModel`.
-- `update`: Updates an object of the specified class and id by adding or updating an attribute. For example, `update
-- BaseModel 1234-1234-1234 attribute_name "attribute_value"`.
+- `update`: Updates an object of the specified class and id by adding or updating an attribute. For example, `update BaseModel 1234-1234-1234 attribute_name "attribute_value"`.
 
 ## Examples
 Creating an object:
