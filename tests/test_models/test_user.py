@@ -1,10 +1,11 @@
 #!/usr/bin/python3
+'''
+Test User class
+'''
 from models.user import User
 from models.base_model import BaseModel
 import unittest
 from datetime import datetime
-'''Test User class
-'''
 
 
 class TestUser(unittest.TestCase):
