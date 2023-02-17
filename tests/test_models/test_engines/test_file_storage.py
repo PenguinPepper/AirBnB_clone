@@ -1,9 +1,10 @@
 #!/usr/bin/python3
+'''
+Test cases for FileStorage class
+'''
 import json
 from models.engine import file_storage
 import unittest
-'''Test cases for FileStorage class
-'''
 
 
 class TestFileStorage(unittest.TestCase):
