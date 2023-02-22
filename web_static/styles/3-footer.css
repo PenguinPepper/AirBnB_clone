@@ -5,6 +5,8 @@ footer {
     margin-top: 36%;
     bottom: 0;
     position: fixed;
-    text-align: center;
     border-top: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
