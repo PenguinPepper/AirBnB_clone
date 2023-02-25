@@ -31,6 +31,8 @@ button:hover {
     height: 100%;
     width: 25%;
     float: left;
+    /* display: flex;
+    flex-direction: column; */
 }
 
 h3 {
@@ -63,6 +65,11 @@ h2 {
 
 .locations:hover .popover,
 .amenities:hover .popover {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    content: "";
+    clear: both;
     display: block;
 }
 
@@ -70,4 +77,8 @@ li {
     list-style-type: none;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.drop {
+    margin-left: 10px;
 }
